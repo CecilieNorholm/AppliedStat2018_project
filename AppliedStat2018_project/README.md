@@ -1,1 +1,0 @@
-# AppliedStat2018_project
