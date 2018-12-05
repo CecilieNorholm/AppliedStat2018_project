@@ -11,15 +11,17 @@ from scipy.special import erfc
 
 # Read in data from files and put them into arrays
 
-infiles = ["data_TableMeasurements2018.txt",
-           "data_TableMeasurements2017.txt",
-           "data_TableMeasurements2016.txt",
-           "data_TableMeasurements2015.txt",
-           "data_TableMeasurements2014.txt",
-           "data_TableMeasurements2013.txt",
-           "data_TableMeasurements2012.txt",
-           "data_TableMeasurements2011.txt",
-           "data_TableMeasurements2010.txt",
-           "data_TableMeasurements2009.txt"]
+infiles = ["data/data_DBall.txt",
+           "data/data_DRail.txt",
+           "data/data_Gates.txt",
+           "data/data_AngADoor.txt",
+           "data/data_AngAWall.txt",
+           "data/data_AngBDoor.txt",
+           "data/data_AngBWall.txt",
+           "data/data_AngBWall.txt", 
+                   
+           
+           
+           "data/data_DBalltxt"]
 
 
