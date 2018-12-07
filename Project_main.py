@@ -18,6 +18,11 @@ if blinded:
 else:
     blinding = 0
 
+# Defining error propagation function for Pendulum
+def errorprop_pendulum(L, Lerr, T, Terr):
+    return: np.sqrt( ((2*np.pi / T)**4) * Lerr**2 + ((-2*L * ((2*np.pi)**2) / T**3)**2) * Terr**2 )
+
+    
 DBall=np.array([])
 eDBall=np.array([])
 DRail=np.array([])
