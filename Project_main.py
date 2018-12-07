@@ -1,5 +1,5 @@
 ### APPSTAT PROJEKT 
-
+#Test chr 
 
 import numpy as np                                     # Matlab like syntax for linear algebra and functions
 import matplotlib.pyplot as plt                        # Plots and figures like you know them from Matlab
@@ -9,9 +9,6 @@ import sys
 from scipy import stats
 from scipy.special import erfc
 
-# Defining error propagation function for Pendulum
-def errorprop_pendulum(L, Lerr, T, Terr):
-    return: np.sqrt( ((2*np.pi / T)**4) * Lerr**2 + ((-2*L * ((2*np.pi)**2) / T**3)**2) * Terr**2 )
 
 # Read in data from files and put them into arrays
 
@@ -22,16 +19,10 @@ if blinded:
 else:
     blinding = 0
 
-<<<<<<< HEAD
-# Defining error propagation function for Pendulum
-def errorprop_pendulum(L, Lerr, T, Terr):
-    return: np.sqrt( ((2*np.pi / T)**4) * Lerr**2 + ((-2*L * ((2*np.pi)**2) / T**3)**2) * Terr**2 )
-
-    
+   
 =======
 ##### Lengths and angles read in 
 
->>>>>>> 69ed6f0e605ff9732114e9f63b13c326bb6a245b
 DBall=np.array([])
 eDBall=np.array([])
 DRail=np.array([])
