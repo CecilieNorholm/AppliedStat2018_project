@@ -116,6 +116,25 @@ for infile in infiles:
     StringR =np.append(StringR, tmp_StringR)
     eStringR=np.append(eStringR, tmp_eStringR)     
 
+### Calculating length of the pendulum
+# String - hook + pendulum/2
+    
+# Combined string length is computed first
+String_L_array = np.hstack((StringL,StringR))
+String_Lerr_array = np.hstack((eStringL,eStringR))
+String_L_combined =  (sum(String_L_array)) / 8
+String_Lerr_combined = sum(np.sqrt((String_Lerr_array**2) / 8**2))
+Pendul = Pendul*0.01 # Converting pendulum length from cm to m
+
+# Total length of pendulum is calculated
+Pendulum_L = String_L_combined - Hook + (Pendul / 2)
+Pendulum_Lerr = np.sqrt(String_Lerr_combined**2 + eHook**2 + (ePendul**2 / 2**2))
+
+# Combined length of 4 pendulum-length and corresponding errors is computed
+Pendulum_L_combined = sum(Pendulum_L) / 4
+Pendulum_Lerr_combined = sum(np.sqrt(Pendulum_Lerr**2 / 4**2))
+
+
 
 ######### Pendulum time series read in 
 
