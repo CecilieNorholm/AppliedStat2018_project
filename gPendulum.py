@@ -11,7 +11,8 @@ import math as m
 # Defining error propagation function for Pendulum
 def gcalc_pendulum(L, T):
     
-        """
+    
+    """
     Computes the gravitational acceleration g for a
     'Pendulum Experiment'
 
@@ -24,7 +25,6 @@ def gcalc_pendulum(L, T):
     ---------
     g_pendulum : gravitational acceleration 'g' as a numpy array
     """
+    g_pendulum = L*(2*np.pi / T)**2
     
-    g_pendulum = L * (2*np.pi / T)**2
-
-    return: g_pendulum
+    return g_pendulum

@@ -12,6 +12,7 @@ from scipy.special import erfc
 
 from PendFit import PendFit
 from PendPlots import PendPlots
+from gPendulum import gcalc_pendulum    
 
 # Read in data from files and put them into arrays
 sys.path.append('/External_Functions')
@@ -191,12 +192,10 @@ T_comb.append(T), sigmaT_comb.append(sigmaT)
 T_comb=np.array([T_comb])
 T_mean=T_comb.mean()
 T=T_mean
-
 sigmaT_comb=np.array([sigmaT_comb])
 #sigmaT= ??? RMS of residuals ?
 
 # g regnes
-g=4*np.pi**2*Pendulum_L_combined/T**2
+g=gcalc_pendulum(Pendulum_L_combined,T)
 print(g)
-
 
