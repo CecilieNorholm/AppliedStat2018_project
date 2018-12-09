@@ -10,6 +10,8 @@ import seaborn as sns
 from scipy import stats
 from scipy.special import erfc
 
+from PendFit import PendFit
+
 # Read in data from files and put them into arrays
 sys.path.append('/External_Functions')
 from ExternalFunctions import nice_string_output, add_text_to_ax # useful functions to print fit results on figure
@@ -131,7 +133,7 @@ infiles = ["data/Timer_Dat/timer_C1.dat"]
 for infile in infiles:
         n, tmp_timer_C1=np.loadtxt(infile, skiprows=0, unpack=True)
         timer_C1=np.append(timer_C1, tmp_timer_C1)
-        
+
 infiles = ["data/Timer_Dat/timer_C2.dat"]
 for infile in infiles:
         n, tmp_timer_C2=np.loadtxt(infile, skiprows=0, unpack=True)
@@ -167,45 +169,9 @@ for infile in infiles:
         n, tmp_timer_Z2=np.loadtxt(infile, skiprows=0, unpack=True)
         timer_Z2=np.append(timer_Z2, tmp_timer_Z2)
  
-                 
-def linear(x,a,b):
-    y=a*x+b
-    return y
-        
 
-N_var = 2                     # Number of variables (p0:p3)
-N_dof = len(x) - N_var   # Number of degrees of freedom
-from scipy import stats
-chi2_prob = stats.chi2.sf(chi2, N_dof) # The chi2 probability given N_DOF degrees of freedom
+T, sigmaT, Res=PendFit(timer_C1);
 
-fig, ax = plt.subplots(figsize=(12, 8))
-y=timer_Cr1
-x=n
-ax.plot(x,y, 'o')
-ax.set(xlabel="Measurement number",ylabel="Time elapsed (s)")
+print(f" T:        {T} \n" , 
+      f"sigmaT:   {sigmaT} \n")
 
-
-chi2_object = Chi2Regression(linear,x, y)
-minuit = Minuit(chi2_object, pedantic=False, a=0,b=0) #   
-minuit.migrad()  # perform the actual fit
-chi2 = minuit.fval
-
-
-xaxis = n
-yaxis = linear(xaxis, *minuit.args)
-ax.plot(xaxis,yaxis)
-ax.set(xlabel="Measurement number",ylabel="Time elapsed (s)")
-
-d = {'Chi2':     chi2,
-     'ndf':      N_dof,
-     'Prob':     chi2_prob,
-     'Haeldning': [minuit.values['a'], minuit.errors['a']],
-     'Skaering': [minuit.values['b'], minuit.errors['b']]
-    }
-
-string = nice_string_output(d, extra_spacing=2, decimals=3)
-add_text_to_ax(0.02, 0.97, string, ax, fontsize=14)
-
-
-fig
-    
