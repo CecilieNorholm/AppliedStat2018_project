@@ -12,7 +12,8 @@ from scipy.special import erfc
 
 from PendFit import PendFit
 from PendPlots import PendPlots
-from gPendulum import gcalc_pendulum    
+from gPendulum import gcalc_pendulum   
+from SigmaPendulum import errorprop_pendulum 
 
 # Read in data from files and put them into arrays
 sys.path.append('/External_Functions')
@@ -178,7 +179,7 @@ for infile in infiles:
         timer_Z2=np.append(timer_Z2, tmp_timer_Z2)
         timer_Z2=timer_Z2[0:-4]
     
-PendPlots(timer_Cr2)
+x,res,eT=PendPlots(timer_Z1)
 
 #PendPlots(timer_C1)
 # Perioden med usikkerheder regnes    
@@ -204,8 +205,17 @@ T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.
 T, eT_RMS, chi2, chi2_prob=PendFit(timer_Z2);
 T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
 
+
+
 T_comb=np.array([T_comb])
-T_mean=T_comb.mean()
-T=T_mean
-g=gcalc_pendulum(Pendulum_L_combined,T)
-print(g) 
+T=T_comb.mean()
+
+eT_RMS_comb=np.array([eT_RMS_comb])
+eT=np.sqrt(np.sum(eT_RMS_comb**2))
+
+
+
+g=gcalc_pendulum(Pendulum_L,T)
+eg=errorprop_pendulum(Pendulum_L, Pendulum_Lerr, T, eT)
+
+print(g, eg) 

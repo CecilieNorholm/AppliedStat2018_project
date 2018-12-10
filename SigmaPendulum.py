@@ -11,7 +11,7 @@ import math as m
 # Defining error propagation function for Pendulum
 def errorprop_pendulum(L, Lerr, T, Terr):
     
-        """
+    """
     Computes the error on gravitational acceleration g for a
     'Pendulum Experiment'
 
@@ -29,5 +29,5 @@ def errorprop_pendulum(L, Lerr, T, Terr):
     
     sigma_g= np.sqrt( ((2*np.pi / T)**4) * Lerr**2 + ((-2*L * ((2*np.pi)**2) / T**3)**2) * Terr**2 )
 
-    return: sigma_g
+    return sigma_g
     

@@ -76,18 +76,20 @@ def PendPlots(timer_dat):
     res[0]=y[0]
     res=[x-minuit.values["a"] for x in res]
     
-    res=np.array([res])
-    eT=np.sqrt(np.sum(res**2)/len(x))
+    res2=[x**2 for x in res]
+    eT=np.sqrt(np.sum(res2)/len(x))
+
      
     # Plot residuals around 0
     fig_res, ax_res = plt.subplots(figsize=(8, 6))
     ax_res.errorbar(x, res, eT, fmt='k_', ecolor='k', elinewidth=1, capsize=2, capthick=1)
         
-    xaxis = np.linspace(0, 25, 25)
-    yaxis = np.linspace (-.4,.4,25)
-    ax_res.plot()
+#    xaxis = np.linspace(0, 25, 25)
+#    yaxis = np.linspace (-1,1,20)
+#    ax_res.plot(xaxis,yaxis)
     
     T=minuit.values['a']
     sigmaT=minuit.errors['a']
     
-    return 
+    return T,sigmaT, res
+    
