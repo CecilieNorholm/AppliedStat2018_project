@@ -19,6 +19,8 @@ sys.path.append('/External_Functions')
 from ExternalFunctions import nice_string_output, add_text_to_ax # useful functions to print fit results on figure
 
 # Blinding
+r=np.random
+r.seed(50)
 blinded = False
 if blinded:
     blinding = r.normal(0, 0.1)      # I add a constant (Gaussian with +-10cm) to remain "blind"
@@ -105,6 +107,7 @@ for infile in infiles:
     StringR =np.append(StringR, tmp_StringR)
     eStringR=np.append(eStringR, tmp_eStringR)     
 
+
 ### Calculating length of the pendulum
 # String - hook + pendulum/2
 # Combined string length is computed first
@@ -166,36 +169,36 @@ infiles = ["data/Timer_Dat/timer_Z2.dat"]
 for infile in infiles:
         n, tmp_timer_Z2=np.loadtxt(infile, skiprows=0, unpack=True)
         timer_Z2=np.append(timer_Z2, tmp_timer_Z2)
- 
-PendPlots(timer_R2)   
+        timer_Z2=timer_Z2[0:-4]
     
+PendPlots(timer_Cr2)
+
+#PendPlots(timer_C1)
 # Perioden med usikkerheder regnes    
 T_comb=[]
-sigmaT_comb=[]
-T, sigmaT, Res=PendFit(timer_C1);
-T_comb.append(T), sigmaT_comb.append(sigmaT)
-T, sigmaT, Res=PendFit(timer_C2);
-T_comb.append(T), sigmaT_comb.append(sigmaT)
-T, sigmaT, Res=PendFit(timer_Cr1);
-T_comb.append(T), sigmaT_comb.append(sigmaT)
-T, sigmaT, Res=PendFit(timer_Cr2);
-T_comb.append(T), sigmaT_comb.append(sigmaT)
-T, sigmaT, Res=PendFit(timer_R1);
-T_comb.append(T), sigmaT_comb.append(sigmaT)
-T, sigmaT, Res=PendFit(timer_R2);
-T_comb.append(T), sigmaT_comb.append(sigmaT)
-T, sigmaT, Res=PendFit(timer_Z1);
-T_comb.append(T), sigmaT_comb.append(sigmaT)
-T, sigmaT, Res=PendFit(timer_Z2);
-T_comb.append(T), sigmaT_comb.append(sigmaT)
+eT_RMS_comb=[]
+chi2_comb=[]
+prob_comb=[]
+
+T, eT_RMS, chi2, chi2_prob=PendFit(timer_C1);
+T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT_RMS, chi2, chi2_prob=PendFit(timer_C2);
+T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT_RMS, chi2, chi2_prob=PendFit(timer_Cr1);
+T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT_RMS, chi2, chi2_prob=PendFit(timer_Cr2);
+T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT_RMS, chi2, chi2_prob=PendFit(timer_R1);
+T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT_RMS, chi2, chi2_prob=PendFit(timer_R2);
+T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT_RMS, chi2, chi2_prob=PendFit(timer_Z1);
+T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT_RMS, chi2, chi2_prob=PendFit(timer_Z2);
+T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
 
 T_comb=np.array([T_comb])
 T_mean=T_comb.mean()
 T=T_mean
-sigmaT_comb=np.array([sigmaT_comb])
-#sigmaT= ??? RMS of residuals ?
-
-# g regnes
 g=gcalc_pendulum(Pendulum_L_combined,T)
-print(g)
-
+print(g) 
