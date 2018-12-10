@@ -117,20 +117,30 @@ for infile in infiles:
 ### Calculating length of the pendulum
 # String - hook + pendulum/2
     
+#def Chi2_L(obs, expect, err_expect):
+#    Chi2_L = np.sum((obs - expect)**2 / err_expect**2)
+#    return: Chi2_L
+    
+    
+Pendul = Pendul*0.01 # Converting pendulum length from cm to m    
 # Combined string length is computed first
 String_L_array = np.hstack((StringL,StringR))
 String_Lerr_array = np.hstack((eStringL,eStringR))
 String_L_combined =  (sum(String_L_array)) / 8
 String_Lerr_combined = sum(np.sqrt((String_Lerr_array**2) / 8**2))
-Pendul = Pendul*0.01 # Converting pendulum length from cm to m
+Hook_combined = sum(Hook) / len(Hook)
+eHook_combined = np.mean(eHook)
+Pendulum_combined = sum(Pendul) / len(Pendul)
+ePendulum_combined = np.mean(ePendul)
+
 
 # Total length of pendulum is calculated
-Pendulum_L = String_L_combined - Hook + (Pendul / 2)
-Pendulum_Lerr = np.sqrt(String_Lerr_combined**2 + eHook**2 + (ePendul**2 / 2**2))
+Pendulum_L = String_L_combined - Hook_combined + (Pendulum_combined / 2)
+Pendulum_Lerr = np.sqrt(String_Lerr_combined**2 + eHook_combined**2 + (ePendulum_combined**2 / 2**2))
 
 # Combined length of 4 pendulum-length and corresponding errors is computed
-Pendulum_L_combined = sum(Pendulum_L) / 4
-Pendulum_Lerr_combined = sum(np.sqrt(Pendulum_Lerr**2 / 4**2))
+#Pendulum_L_combined = sum(Pendulum_L) / 4
+#Pendulum_Lerr_combined = sum(np.sqrt(Pendulum_Lerr**2 / 4**2))
 
 
 
@@ -187,44 +197,44 @@ for infile in infiles:
         timer_Z2=np.append(timer_Z2, tmp_timer_Z2)
  
                  
-def linear(x,a,b):
-    y=a*x+b
-    return y
-        
-
-N_var = 2                     # Number of variables (p0:p3)
-N_dof = len(x) - N_var   # Number of degrees of freedom
-from scipy import stats
-chi2_prob = stats.chi2.sf(chi2, N_dof) # The chi2 probability given N_DOF degrees of freedom
-
-fig, ax = plt.subplots(figsize=(12, 8))
-y=timer_Cr1
-x=n
-ax.plot(x,y, 'o')
-ax.set(xlabel="Measurement number",ylabel="Time elapsed (s)")
-
-
-chi2_object = Chi2Regression(linear,x, y)
-minuit = Minuit(chi2_object, pedantic=False, a=0,b=0) #   
-minuit.migrad()  # perform the actual fit
-chi2 = minuit.fval
-
-
-xaxis = n
-yaxis = linear(xaxis, *minuit.args)
-ax.plot(xaxis,yaxis)
-ax.set(xlabel="Measurement number",ylabel="Time elapsed (s)")
-
-d = {'Chi2':     chi2,
-     'ndf':      N_dof,
-     'Prob':     chi2_prob,
-     'Haeldning': [minuit.values['a'], minuit.errors['a']],
-     'Skaering': [minuit.values['b'], minuit.errors['b']]
-    }
-
-string = nice_string_output(d, extra_spacing=2, decimals=3)
-add_text_to_ax(0.02, 0.97, string, ax, fontsize=14)
-
-
-fig
+#def linear(x,a,b):
+#    y=a*x+b
+#    return y
+#        
+#
+#N_var = 2                     # Number of variables (p0:p3)
+#N_dof = len(x) - N_var   # Number of degrees of freedom
+#from scipy import stats
+#chi2_prob = stats.chi2.sf(chi2, N_dof) # The chi2 probability given N_DOF degrees of freedom
+#
+#fig, ax = plt.subplots(figsize=(12, 8))
+#y=timer_Cr1
+#x=n
+#ax.plot(x,y, 'o')
+#ax.set(xlabel="Measurement number",ylabel="Time elapsed (s)")
+#
+#
+#chi2_object = Chi2Regression(linear,x, y)
+#minuit = Minuit(chi2_object, pedantic=False, a=0,b=0) #   
+#minuit.migrad()  # perform the actual fit
+#chi2 = minuit.fval
+#
+#
+#xaxis = n
+#yaxis = linear(xaxis, *minuit.args)
+#ax.plot(xaxis,yaxis)
+#ax.set(xlabel="Measurement number",ylabel="Time elapsed (s)")
+#
+#d = {'Chi2':     chi2,
+#     'ndf':      N_dof,
+#     'Prob':     chi2_prob,
+#     'Haeldning': [minuit.values['a'], minuit.errors['a']],
+#     'Skaering': [minuit.values['b'], minuit.errors['b']]
+#    }
+#
+#string = nice_string_output(d, extra_spacing=2, decimals=3)
+#add_text_to_ax(0.02, 0.97, string, ax, fontsize=14)
+#
+#
+#fig
     
