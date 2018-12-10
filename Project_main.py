@@ -122,11 +122,11 @@ Pendul = Pendul*0.01 # Converting pendulum length from cm to m
 String_L_array = np.hstack((StringL,StringR))
 String_Lerr_array = np.hstack((eStringL,eStringR))
 String_L_combined =  (sum(String_L_array)) / 8
-String_Lerr_combined = sum(np.sqrt((String_Lerr_array**2) / 8**2))
+String_Lerr_combined = np.sqrt(np.sum(String_Lerr_array**2))
 Hook_combined = sum(Hook) / len(Hook)
-eHook_combined = np.mean(eHook)
+eHook_combined = np.sqrt(np.sum(eHook**2))
 Pendulum_combined = sum(Pendul) / len(Pendul)
-ePendulum_combined = np.mean(ePendul)
+ePendulum_combined = np.sqrt(np.sum(ePendul**2))
 
 
 # Total length of pendulum is calculated
@@ -208,6 +208,7 @@ T_comb.append(T), eT_RMS_comb.append(eT_RMS), chi2_comb.append(chi2), prob_comb.
 
 
 T_comb=np.array([T_comb])
+<<<<<<< HEAD
 T=T_comb.mean()
 
 eT_RMS_comb=np.array([eT_RMS_comb])
@@ -219,3 +220,9 @@ g=gcalc_pendulum(Pendulum_L,T)
 eg=errorprop_pendulum(Pendulum_L, Pendulum_Lerr, T, eT)
 
 print(g, eg) 
+=======
+T_mean=T_comb.mean()
+T=T_mean
+g=gcalc_pendulum(Pendulum_L,T)
+print(g) 
+>>>>>>> f3c4b9470d9f620b164e3a500dd434cd17ebeff6
