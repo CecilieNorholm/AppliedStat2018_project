@@ -81,7 +81,7 @@ def PendPlots(timer_dat):
      
     # Plot residuals around 0
     fig_res, ax_res = plt.subplots(figsize=(8, 6))
-    ax_res.errorbar(x, res, eT, fmt='k_', ecolor='k', elinewidth=1, capsize=2, capthick=1)
+    ax_res.errorbar(x, res, yerr=eT, xerr=None, fmt='k_', ecolor='k', elinewidth=1, capsize=2, capthick=1)
         
     xaxis = np.linspace(0, 25, 25)
     yaxis = np.linspace (-.4,.4,25)
