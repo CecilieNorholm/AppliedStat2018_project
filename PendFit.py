@@ -51,4 +51,18 @@ def PendFit(timer_dat):
     T=minuit.values['a']
     sigmaT=minuit.errors['a']
     
-    return T, sigmaT, chi2
+    y=y-minuit.values["b"]
+    res=[]    
+    for i in range(len(y)):
+        res.append(y[i]-y[i-1])
+    res[0]=y[0]
+    res=[x-minuit.values["a"] for x in res]
+    
+    res=np.array([res])
+    eT=np.sqrt(np.sum(res**2)/len(x))
+    
+    N_var = 2                     # Number of variables (p0:p3)
+    N_dof = len(x) - N_var   # Number of degrees of freedom
+    chi2_prob = stats.chi2.sf(chi2, N_dof) # The chi2 probability given N_DOF degrees of freedom
+
+    return T, eT, chi2, chi2_prob
