@@ -182,36 +182,35 @@ for infile in infiles:
         timer_Z2=np.append(timer_Z2, tmp_timer_Z2)
         timer_Z2=timer_Z2[0:-4]
     
-x,res,eT=PendPlots(timer_C2)
-
-PendPlots(timer_Z1)
-# Perioden med usikkerheder regnes    
-T_comb=[]
-eT_comb=[]
-chi2_comb=[]
-prob_comb=[]
-
-T, eT, chi2, chi2_prob=PendFit(timer_C1);
-T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-T, eT, chi2, chi2_prob=PendFit(timer_C2);
-T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-T, eT, chi2, chi2_prob=PendFit(timer_Cr1);
-T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-T, eT, chi2, chi2_prob=PendFit(timer_Cr2);
-T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-T, eT, chi2, chi2_prob=PendFit(timer_R1);
-T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-T, eT, chi2, chi2_prob=PendFit(timer_R2);
-T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-T, eT, chi2, chi2_prob=PendFit(timer_Z1);
-T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-T, eT, chi2, chi2_prob=PendFit(timer_Z2);
-T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-
-
-
-eT_comb=np.array([eT_comb])
-T=np.sum(T_comb/eT_comb**2)/np.sum(eT_comb**(-2))
-eT= np.sqrt(1/np.sum(eT_comb**(-2)))
-
-eg=errorprop_pendulum(Pendulum_L,Pendulum_Lerr,T,eT)
+PendPlots(timer_C1) 
+    
+#Perioden med usikkerheder regnes    
+#T_comb=[]
+#eT_comb=[]
+#chi2_comb=[]
+#prob_comb=[]
+#
+#T, eT, chi2, chi2_prob=PendFit(timer_C1);
+#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+#T, eT, chi2, chi2_prob=PendFit(timer_C2);
+#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+#T, eT, chi2, chi2_prob=PendFit(timer_Cr1);
+#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+#T, eT, chi2, chi2_prob=PendFit(timer_Cr2);
+#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+#T, eT, chi2, chi2_prob=PendFit(timer_R1);
+#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+#T, eT, chi2, chi2_prob=PendFit(timer_R2);
+#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+#T, eT, chi2, chi2_prob=PendFit(timer_Z1);
+#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+#T, eT, chi2, chi2_prob=PendFit(timer_Z2);
+#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+#
+#
+#
+#eT_comb=np.array([eT_comb])
+#T=np.sum(T_comb/eT_comb**2)/np.sum(eT_comb**(-2))
+#eT= np.sqrt(1/np.sum(eT_comb**(-2)))
+#
+#eg=errorprop_pendulum(Pendulum_L,Pendulum_Lerr,T,eT)
