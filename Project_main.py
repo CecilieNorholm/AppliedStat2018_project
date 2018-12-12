@@ -116,20 +116,23 @@ for infile in infiles:
 #    Chi2_L = np.sum((obs - expect)**2 / err_expect**2)
 #    return: Chi2_L
     
-    
-Pendul = Pendul*0.01 # Converting pendulum length from cm to m    
+Pendul = Pendul*0.01 # Converting pendulum length from cm to m   
+ 
 # Combined string length is computed first
+# Measurements are combined using weighted mean
 String_L_array = np.hstack((StringL,StringR))
 String_Lerr_array = np.hstack((eStringL,eStringR))
-String_L_combined =  (sum(String_L_array)) / 8
-String_Lerr_combined = np.sqrt(np.sum(String_Lerr_array**2))
-Hook_combined = sum(Hook) / len(Hook)
-eHook_combined = np.sqrt(np.sum(eHook**2))
-Pendulum_combined = sum(Pendul) / len(Pendul)
-ePendulum_combined = np.sqrt(np.sum(ePendul**2))
+
+String_L_combined =  np.sum(String_L_array / String_Lerr_array**2) / np.sum(1 / String_Lerr_array**2)
+String_Lerr_combined = np.sqrt(1 / np.sum(1 / String_Lerr_array**2))
+
+Hook_combined = np.sum(Hook / eHook**2) / np.sum(1 / eHook**2)
+eHook_combined = np.sqrt(1 / np.sum(1 / eHook**2))
+Pendulum_combined = np.sum(Pendul / ePendul**2) / np.sum(1 / ePendul**2)
+ePendulum_combined = np.sqrt(1/ np.sum(1 / ePendul**2))
 
 
-# Total length of pendulum is calculated
+# Total length of pendulum is calculated using
 Pendulum_L = String_L_combined - Hook_combined + (Pendulum_combined / 2)
 Pendulum_Lerr = np.sqrt(String_Lerr_combined**2 + eHook_combined**2 + (ePendulum_combined**2 / 2**2))
 
@@ -208,7 +211,7 @@ T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(c
 
 
 eT_comb=np.array([eT_comb])
-T=sum(T_comb/eT_comb**2)/sum(eT_comb**(-2))
-eT= np.sqrt(1/sum(eT_comb**(-2)))
+T=np.sum(T_comb/eT_comb**2)/np.sum(eT_comb**(-2))
+eT= np.sqrt(1/np.sum(eT_comb**(-2)))
 
 eg=errorprop_pendulum(Pendulum_L,Pendulum_Lerr,T,eT)
