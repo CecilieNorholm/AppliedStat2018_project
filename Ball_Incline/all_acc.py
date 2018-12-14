@@ -5,7 +5,7 @@ import csv
 from iminuit import Minuit
 from matplotlib import pyplot as plt
 from probfit import Chi2Regression
-sys.path.append('../../External_Functions')
+sys.path.append('../External_Functions')
 from ExternalFunctions import nice_string_output, add_text_to_ax # useful functions to print fit results on figure
 from scipy import stats
 
@@ -51,29 +51,30 @@ for i in range(5):
     error_acc_a = minuit.errors['a']
     error_array_a.append(error_acc_a) #error on every full run
 
-# #PLOTTING A
-# #OBS - REMEMBER TITLE AND AXIS AND LIMITS
-# x = np.linspace(0,2,100)
-# fig1, ax = plt.subplots(figsize=(10,6))
-# ax.errorbar(t_a,d_a,sigma_d,fmt='ro',ecolor ='k',elinewidth=1,capsize=2,capthick=1)
-# ax.plot(x,fit_func(x,*minuit.args),'-r',label='Chi2Fit')
-# ax.set_title('Constant Acceleration - Ball Incline Experiment A side')
-# ax.set_xlabel('Time [s]')
-# ax.set_ylabel('Distance [m]')
-# ax.set_xlim(0,1.5)
-# a = minuit.values['a']
-# sigma_a = minuit.errors['a']
-# Chi2_fit = minuit.fval
-# Prob_fit = stats.chi2.sf(Chi2_fit, Ndof_fit)
-# info = {'a':   [a, sigma_a],
-#         'Chi2':     Chi2_fit,
-#         'ndf':      Ndof_fit,
-#         'Prob':     Prob_fit,
-#         }
-# text = nice_string_output(info, extra_spacing=2, decimals=3)
-# add_text_to_ax(0.02, 0.95, text,ax, fontsize=14)
-# fig1.tight_layout()
-# fig1
+#PLOTTING A
+#OBS - REMEMBER TITLE AND AXIS AND LIMITS
+x = np.linspace(0,2,100)
+fig1, ax = plt.subplots(figsize=(10,6))
+ax.errorbar(t_a,d_a,sigma_d,fmt='ro',ecolor ='k',elinewidth=1,capsize=2,capthick=1)
+ax.plot(x,fit_func(x,*minuit.args),'--b',label='Chi2Fit')
+ax.set_title('Eqation of Motion with Constant Acceleration for the Ball on Incline Experiment')
+ax.set_xlabel('Time [s]')
+ax.set_ylabel('Distance [m]')
+ax.set_xlim(0,1.5)
+a = minuit.values['a']
+sigma_a = minuit.errors['a']
+Chi2_fit = minuit.fval
+Prob_fit = stats.chi2.sf(Chi2_fit, Ndof_fit)
+info = {'a':   [a, sigma_a],
+        'Chi2':     Chi2_fit,
+        'ndf':      Ndof_fit,
+        'Prob':     Prob_fit,
+        }
+text = nice_string_output(info, extra_spacing=2, decimals=3)
+add_text_to_ax(0.02, 0.95, text,ax, fontsize=14)
+fig1.tight_layout()
+fig1.savefig("EoM_Ball_Incline.pdf",dpi=600)
+fig1
 
 #Computes acceleration on 'B' side of every run
 for i in range(5):
@@ -133,17 +134,17 @@ acc_full_a = [mean_acc_a,error_mean_acc_a]
 acc_full_b = [mean_acc_b,error_mean_acc_b]
 
 
-csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/rune_acc_a.txt"
-with open(csvfile,"w") as output:
-    writer = csv.writer(output,lineterminator='\n')
-    for val in acc_full_a:
-        writer.writerow([val])
-
-csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/rune_acc_b.txt"
-with open(csvfile,"w") as output:
-    writer = csv.writer(output,lineterminator='\n')
-    for val in acc_full_b:
-        writer.writerow([val])
+# csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/rune_acc_a.txt"
+# with open(csvfile,"w") as output:
+#     writer = csv.writer(output,lineterminator='\n')
+#     for val in acc_full_a:
+#         writer.writerow([val])
+#
+# csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/rune_acc_b.txt"
+# with open(csvfile,"w") as output:
+#     writer = csv.writer(output,lineterminator='\n')
+#     for val in acc_full_b:
+#         writer.writerow([val])
 #==============================================================================
 #################### ZLATKO ########################
 #Loading data
@@ -267,17 +268,17 @@ error_mean_acc_b = np.mean(error_array_b) / np.sqrt(len(error_array_b))
 acc_full_a = [mean_acc_a,error_mean_acc_a]
 acc_full_b = [mean_acc_b,error_mean_acc_b]
 
-csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/zlatko_acc_a.txt"
-with open(csvfile,"w") as output:
-    writer = csv.writer(output,lineterminator='\n')
-    for val in acc_full_a:
-        writer.writerow([val])
-
-csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/zlatko_acc_b.txt"
-with open(csvfile,"w") as output:
-    writer = csv.writer(output,lineterminator='\n')
-    for val in acc_full_b:
-        writer.writerow([val])
+# csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/zlatko_acc_a.txt"
+# with open(csvfile,"w") as output:
+#     writer = csv.writer(output,lineterminator='\n')
+#     for val in acc_full_a:
+#         writer.writerow([val])
+#
+# csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/zlatko_acc_b.txt"
+# with open(csvfile,"w") as output:
+#     writer = csv.writer(output,lineterminator='\n')
+#     for val in acc_full_b:
+#         writer.writerow([val])
 #==============================================================================
 
 #################### CHRISTIAN ########################
@@ -402,17 +403,17 @@ error_mean_acc_b = np.mean(error_array_b) / np.sqrt(len(error_array_b))
 acc_full_a = [mean_acc_a,error_mean_acc_a]
 acc_full_b = [mean_acc_b,error_mean_acc_b]
 
-csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/christian_acc_a.txt"
-with open(csvfile,"w") as output:
-    writer = csv.writer(output,lineterminator='\n')
-    for val in acc_full_a:
-        writer.writerow([val])
-
-csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/christian_acc_acc_b.txt"
-with open(csvfile,"w") as output:
-    writer = csv.writer(output,lineterminator='\n')
-    for val in acc_full_b:
-        writer.writerow([val])
+# csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/christian_acc_a.txt"
+# with open(csvfile,"w") as output:
+#     writer = csv.writer(output,lineterminator='\n')
+#     for val in acc_full_a:
+#         writer.writerow([val])
+#
+# csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/christian_acc_acc_b.txt"
+# with open(csvfile,"w") as output:
+#     writer = csv.writer(output,lineterminator='\n')
+#     for val in acc_full_b:
+#         writer.writerow([val])
 ##==============================================================================
 #
 ##################### CECILIE ########################
@@ -536,14 +537,14 @@ error_mean_acc_b = np.mean(error_array_b) / np.sqrt(len(error_array_b))
 acc_full_a = [mean_acc_a,error_mean_acc_a]
 acc_full_b = [mean_acc_b,error_mean_acc_b]
 
-csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/cecilie_acc_a.txt"
-with open(csvfile,"w") as output:
-    writer = csv.writer(output,lineterminator='\n')
-    for val in acc_full_a:
-        writer.writerow([val])
-
-csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/cecilie_acc_b.txt"
-with open(csvfile,"w") as output:
-    writer = csv.writer(output,lineterminator='\n')
-    for val in acc_full_b:
-        writer.writerow([val])
+# csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/cecilie_acc_a.txt"
+# with open(csvfile,"w") as output:
+#     writer = csv.writer(output,lineterminator='\n')
+#     for val in acc_full_a:
+#         writer.writerow([val])
+#
+# csvfile = "/Users/zsaldic/Documents/nbi/AppStat2018/Project/Ball_Incline/cecilie_acc_b.txt"
+# with open(csvfile,"w") as output:
+#     writer = csv.writer(output,lineterminator='\n')
+#     for val in acc_full_b:
+#         writer.writerow([val])
