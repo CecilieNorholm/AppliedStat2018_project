@@ -2,7 +2,8 @@
 #Test chr 222
 
 import numpy as np                                     # Matlab like syntax for linear algebra and functions
-import matplotlib.pyplot as plt                        # Plots and figures like you know them from Matlab
+import matplotlib.pyplot as plt 
+from matplotlib import ticker                       # Plots and figures like you know them from Matlab
 from iminuit import Minuit                             # The actual fitting tool, better than scipy's
 from probfit import BinnedLH, Chi2Regression, Extended, UnbinnedLH # Helper tool for fitting
 import sys
@@ -185,32 +186,30 @@ for infile in infiles:
 PendPlots(timer_C1) 
     
 #Perioden med usikkerheder regnes    
-#T_comb=[]
-#eT_comb=[]
-#chi2_comb=[]
-#prob_comb=[]
-#
-#T, eT, chi2, chi2_prob=PendFit(timer_C1);
-#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-#T, eT, chi2, chi2_prob=PendFit(timer_C2);
-#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-#T, eT, chi2, chi2_prob=PendFit(timer_Cr1);
-#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-#T, eT, chi2, chi2_prob=PendFit(timer_Cr2);
-#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-#T, eT, chi2, chi2_prob=PendFit(timer_R1);
-#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-#T, eT, chi2, chi2_prob=PendFit(timer_R2);
-#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-#T, eT, chi2, chi2_prob=PendFit(timer_Z1);
-#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-#T, eT, chi2, chi2_prob=PendFit(timer_Z2);
-#T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
-#
-#
-#
-#eT_comb=np.array([eT_comb])
-#T=np.sum(T_comb/eT_comb**2)/np.sum(eT_comb**(-2))
-#eT= np.sqrt(1/np.sum(eT_comb**(-2)))
-#
-#eg=errorprop_pendulum(Pendulum_L,Pendulum_Lerr,T,eT)
+T_comb=[]
+eT_comb=[]
+chi2_comb=[]
+prob_comb=[]
+
+T, eT, chi2, chi2_prob=PendFit(timer_C1);
+T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT, chi2, chi2_prob=PendFit(timer_C2);
+T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT, chi2, chi2_prob=PendFit(timer_Cr1);
+T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT, chi2, chi2_prob=PendFit(timer_Cr2);
+T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT, chi2, chi2_prob=PendFit(timer_R1);
+T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT, chi2, chi2_prob=PendFit(timer_R2);
+T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT, chi2, chi2_prob=PendFit(timer_Z1);
+T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+T, eT, chi2, chi2_prob=PendFit(timer_Z2);
+T_comb.append(T), eT_comb.append(eT), chi2_comb.append(chi2), prob_comb.append(chi2_prob)
+
+eT_comb=np.array([eT_comb])
+T=np.sum(T_comb/eT_comb**2)/np.sum(eT_comb**(-2))
+eT= np.sqrt(1/np.sum(eT_comb**(-2)))
+
+eg=errorprop_pendulum(Pendulum_L,Pendulum_Lerr,T,eT)
