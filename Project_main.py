@@ -183,7 +183,7 @@ for infile in infiles:
         timer_Z2=np.append(timer_Z2, tmp_timer_Z2)
         timer_Z2=timer_Z2[0:-4]
     
-PendPlots(timer_C1) 
+PendPlots(timer_R1) 
     
 #Perioden med usikkerheder regnes    
 T_comb=[]
